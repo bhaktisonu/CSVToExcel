@@ -3,7 +3,7 @@ package com.readingCToExcel.readingCSVToExcel;
 import com.opencsv.bean.CsvBindByName;
 import lombok.Data;
 
-import javax.persistence.Column;
+
 
 @Data
 public class Customer {
@@ -16,7 +16,6 @@ public class Customer {
     private String customerCode;
 
     @CsvBindByName
-    @Column
     private String pan;
 
     @CsvBindByName
@@ -24,4 +23,9 @@ public class Customer {
 
     @CsvBindByName
     private String email;
+
+    @CsvBindByName(column="DateOfBirth" )
+    @CsvDate(value = "dd-MM-yyyy")
+    private LocalDate birthDate;
+    
 }
