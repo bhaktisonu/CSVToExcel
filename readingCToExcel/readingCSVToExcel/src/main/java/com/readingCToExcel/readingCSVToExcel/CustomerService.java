@@ -17,7 +17,7 @@ public class CustomerService {
 
     public static void writeExcel(SXSSFWorkbook wb, SXSSFSheet customerSheet, Iterator<Customer> customerIterator) {
         List<String> headers = new ArrayList<>(
-                Arrays.asList("Customer Code", "Customer Name", "PAN", "Contact", "Email"));
+                Arrays.asList("Customer Code", "Customer Name", "PAN", "Contact", "Email","Date of Birth"));
         int rowNum = 0;
         int colNum = 0;
         Row row = customerSheet.createRow(rowNum);
@@ -32,6 +32,8 @@ public class CustomerService {
             cell.setCellValue(header);
             cell.setCellStyle(cellStyle);
         }
+        CellStyle cellStyle1 = wb.createCellStyle();
+        cellStyle1.setDataFormat(wb.createDataFormat().getFormat("dd-MM-yyyy"));
 
         while(customerIterator.hasNext()) {
 
@@ -42,6 +44,11 @@ public class CustomerService {
             row.createCell(2).setCellValue(customer.getPan());
             row.createCell(3).setCellValue(customer.getMobile());
             row.createCell(4).setCellValue(customer.getEmail());
+            Cell cell = row.createCell(5);
+            cell.setCellValue(customer.getBirthDate());
+            cell.setCellStyle(cellStyle1);
+
+
         }
 
         customerSheet.setColumnWidth(0, 4000);
@@ -49,6 +56,8 @@ public class CustomerService {
         customerSheet.setColumnWidth(2, 4000);
         customerSheet.setColumnWidth(3, 4000);
         customerSheet.setColumnWidth(4, 4000);
+        customerSheet.setColumnWidth(5, 4000);
+
     }
 
 }
